@@ -53,19 +53,19 @@ public class jdlSanPham extends javax.swing.JDialog {
     private DefaultTableModel dtm = new DefaultTableModel();
     private List<QLSanPham> listsp = new ArrayList<>();
     private String s = "";
-
+    
     public jdlSanPham(java.awt.Frame parent, boolean modal, QLCheck qlc) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
         tbSanPham.setModel(dtm);
-        String[] form = {"id", "IDSP", "IDNSX", "IDMAUSAC", "IDDONGSP", "NamBH", "Mo Ta", "So Luong Ton", "Gia Nhap", "GiaBan"};
+        String[] form = {"STT", "id", "IDSP", "IDNSX", "IDMAUSAC", "IDDONGSP", "Ten San Pham", "NamBH", "Mo Ta", "So Luong Ton", "Gia Nhap", "GiaBan", "Gia Tri Ton"};
         dtm.setColumnIdentifiers(form);
         loadData();
         cbb();
         s = qlc.getSo1();
     }
-
+    
     private void cbb() {
         cbbMS.setModel(dcbmmausac);
         cbbNamBH.setModel(dcbmnam);
@@ -103,14 +103,16 @@ public class jdlSanPham extends javax.swing.JDialog {
         cbbnsx.setSelectedIndex(0);
         cbbNamBH.setSelectedIndex(0);
     }
-
+    
     private void inPut(List<QLChiTietSP> listQLCT) {
         dtm.setRowCount(0);
+        int i = 0;
         for (QLChiTietSP qLChiTietSP : listQLCT) {
-            dtm.addRow(qLChiTietSP.torow());
+            i++;
+            dtm.addRow(qLChiTietSP.torowBH(i));
         }
     }
-
+    
     private void loadData() {
         listsp = iqlsps.getall();
         listQLCT = iqlctsps.GetAll();
@@ -156,6 +158,8 @@ public class jdlSanPham extends javax.swing.JDialog {
         cbbnsx = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        txtmin = new javax.swing.JTextField();
+        txtmax = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -270,52 +274,53 @@ public class jdlSanPham extends javax.swing.JDialog {
             }
         });
 
+        txtmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtminActionPerformed(evt);
+            }
+        });
+
+        txtmax.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtmaxActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 626, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(jLabel11)
-                        .addGap(18, 18, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addGap(48, 48, 48)
+                        .addComponent(txtMaSP, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel16)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel11))
+                                .addGap(47, 47, 47))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel10)
-                                        .addGap(48, 48, 48)
-                                        .addComponent(txtMaSP, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jLabel16)
-                                                    .addComponent(jLabel3)
-                                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addGap(47, 47, 47))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jLabel2)
-                                                .addGap(18, 18, 18)))
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(txtTenSP)
-                                            .addComponent(cbbMS, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(txtMoTa)
-                                            .addComponent(cbbnsx, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(cbbdongsp, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                        .addGap(27, 27, 27)))
+                                .addComponent(jLabel2)
+                                .addGap(20, 20, 20)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtTenSP)
+                            .addComponent(cbbMS, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtMoTa)
+                            .addComponent(cbbnsx, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cbbdongsp, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(27, 27, 27)
                 .addComponent(btnTim)
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -340,6 +345,16 @@ public class jdlSanPham extends javax.swing.JDialog {
                             .addComponent(bttXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(bttThem))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1077, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txtmin, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(60, 60, 60)
+                .addComponent(txtmax, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(449, 449, 449))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -396,12 +411,15 @@ public class jdlSanPham extends javax.swing.JDialog {
                         .addGap(7, 7, 7)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6)
                             .addComponent(btnTim)
-                            .addComponent(jButton1))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jButton1)
+                            .addComponent(jLabel6))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtmax, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+                    .addComponent(txtmin))
+                .addGap(60, 60, 60)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -410,22 +428,28 @@ public class jdlSanPham extends javax.swing.JDialog {
     private void txtMaSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaSPActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtMaSPActionPerformed
-private void clear(){
-    txtGiaBan.setText("");
-    txtGiaNhap.setText("");
-    txtMaSP.setText("");
-    txtMoTa.setText("");
-    txtSoLuong.setText("");
-    txtTenSP.setText("");
-    txtTimKiem.setText("");
-    cbbMS.setSelectedIndex(0);
-    cbbNamBH.setSelectedIndex(0);
-    cbbdongsp.setSelectedIndex(0);
-    cbbnsx.setSelectedIndex(0);
-}
+    private void clear() {
+        txtGiaBan.setText("");
+        txtGiaNhap.setText("");
+        txtMaSP.setText("");
+        txtMoTa.setText("");
+        txtSoLuong.setText("");
+        txtTenSP.setText("");
+        txtTimKiem.setText("");
+        cbbMS.setSelectedIndex(0);
+        cbbNamBH.setSelectedIndex(0);
+        cbbdongsp.setSelectedIndex(0);
+        cbbnsx.setSelectedIndex(0);
+    }
     private void bttThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttThemActionPerformed
-        QLChiTietSP chiTietSP = get();
-        iqlctsps.save(chiTietSP);
+        int i = JOptionPane.showConfirmDialog(this, "Bạn có muốn thêm");
+        System.out.println(i);
+        if (i == 0) {
+            QLChiTietSP chiTietSP = get();
+            iqlctsps.save(chiTietSP);
+        } else {
+        }
+        
         loadData();
         clear();
 
@@ -449,13 +473,14 @@ private void clear(){
                 BigDecimal.valueOf(giaBan));
         return qlctsp;
     }
+    
     private QLChiTietSP getsua() {
         int i = tbSanPham.getSelectedRow();
         QLSanPham qlsp2 = listsp.get(i);
         QLSanPham qlsp = new QLSanPham(qlsp2.getId(), txtMaSP.getText(), txtTenSP.getText());
         System.out.println(qlsp2.getId());
-        iqlsps.update(qlsp);
-        String idSp = iqlsps.getone(txtMaSP.getText()).getId();
+        if (iqlsps.update(qlsp) == true) {
+            String idSp = iqlsps.getone(txtMaSP.getText()).getId();
         String idms = iqlmss.finone((String) cbbMS.getSelectedItem()).getId();
         String idnsx = iqlnsx.finone((String) cbbnsx.getSelectedItem()).getId();
         String iddsp = iqldsp.finone((String) cbbdongsp.getSelectedItem()).getId();
@@ -476,6 +501,30 @@ private void clear(){
                 BigDecimal.valueOf(giaNhap),
                 BigDecimal.valueOf(giaBan));
         return qlctsp;
+        }else{
+             String idSp = iqlsps.getone(txtMaSP.getText()).getId();
+        String idms = iqlmss.finone((String) cbbMS.getSelectedItem()).getId();
+        String idnsx = iqlnsx.finone((String) cbbnsx.getSelectedItem()).getId();
+        String iddsp = iqldsp.finone((String) cbbdongsp.getSelectedItem()).getId();
+        QLSanPham qlsp1 = new QLSanPham(idSp);
+        QLMauSac qlms1 = new QLMauSac(idms);
+        QLNSX qlnsx1 = new QLNSX(idnsx);
+        QLDongSP qldsp1 = new QLDongSP(iddsp);
+        double giaNhap = Double.parseDouble(txtGiaNhap.getText().trim());
+        double giaBan = Double.parseDouble(txtGiaBan.getText().trim());
+        String id = "";
+        for (QLChiTietSP qLChiTietSP : listQLCT) {
+            if (qLChiTietSP.getIdSp().getId().equals(qldsp1.getId())) {
+                id = qLChiTietSP.getId();
+            }
+        }
+        QLChiTietSP qlctsp = new QLChiTietSP(id, qlsp1, qlnsx1, qlms1, qldsp1,
+                Integer.parseInt((String) cbbNamBH.getSelectedItem()), txtMaSP.getText(), Integer.parseInt(txtSoLuong.getText()),
+                BigDecimal.valueOf(giaNhap),
+                BigDecimal.valueOf(giaBan));
+        return qlctsp;
+        }   
+        
     }
     private void btnTimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimActionPerformed
         QLSanPham qlsp1 = iqlsps.getone(txtTimKiem.getText());
@@ -549,12 +598,17 @@ private void clear(){
         int i = tbSanPham.getSelectedRow();
         QLChiTietSP qlct = listQLCT.get(i);
         QLSanPham QLSP = listsp.get(i);
-        if (iqlctsps.remove(qlct.getId()) == 1 && iqlsps.remove(QLSP.getId()) == true) {
-            JOptionPane.showMessageDialog(this, "Remove Complete");
-            loadData();
-        } else {
-            JOptionPane.showMessageDialog(this, "Remove Faild");
-        }
+        int e = JOptionPane.showConfirmDialog(this, "Bạn có muốn thêm");
+        System.out.println(i);
+        if (e == 0) {
+            if (iqlctsps.remove(qlct.getId()) == 1 && iqlsps.remove(QLSP.getId()) == true) {
+                JOptionPane.showMessageDialog(this, "Remove Complete");
+                loadData();
+            } else {
+                JOptionPane.showMessageDialog(this, "Remove Faild");
+            }
+        }        
+
     }//GEN-LAST:event_bttXoaActionPerformed
 
     private void tbSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbSanPhamMouseClicked
@@ -578,10 +632,57 @@ private void clear(){
 
     private void bttSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttSuaActionPerformed
         // TODO add your handling code here:
-        QLChiTietSP qlctsp = getsua();
-        iqlctsps.update(qlctsp);
+
+        int i = JOptionPane.showConfirmDialog(this, "Bạn có muốn sửa");
+        System.out.println(i);
+        if (i == 0) {
+            QLChiTietSP qlctsp = getsua();
+            iqlctsps.update(qlctsp);
+        }
         loadData();
     }//GEN-LAST:event_bttSuaActionPerformed
+
+    private void txtminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtminActionPerformed
+        // TODO add your handling code here:
+        List<QLChiTietSP> listtk = new ArrayList<>();
+        
+        if (txtmax.getText().equals("")) {
+            for (QLChiTietSP qlct : listQLCT) {
+                double giaban = Double.parseDouble(String.valueOf(qlct.getGiaBan()));
+                int min = Integer.parseInt(txtmin.getText());
+                if (min <= giaban) {
+                    listtk.add(qlct);
+                }
+            }
+        } else {
+            for (QLChiTietSP qlct : listQLCT) {
+                double giaban = Double.parseDouble(String.valueOf(qlct.getGiaBan()));
+                int max = Integer.parseInt(txtmax.getText());
+                int min = Integer.parseInt(txtmin.getText());
+                if (min <= giaban && giaban <= max) {
+                    listtk.add(qlct);
+                }
+            }
+        }
+        
+        inPut(listtk);
+        listtk.clear();
+    }//GEN-LAST:event_txtminActionPerformed
+
+    private void txtmaxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtmaxActionPerformed
+        // TODO add your handling code here:
+        List<QLChiTietSP> listtk = new ArrayList<>();
+        for (QLChiTietSP qlct : listQLCT) {
+            double giaban = Double.parseDouble(String.valueOf(qlct.getGiaBan()));
+            int max = Integer.parseInt(txtmax.getText());
+            int min = Integer.parseInt(txtmin.getText());
+            if (min <= giaban && giaban <= max) {
+                listtk.add(qlct);
+            }
+        }
+        inPut(listtk);
+        listtk.clear();
+    }//GEN-LAST:event_txtmaxActionPerformed
 
     /**
      * @param args the command line arguments
@@ -655,5 +756,7 @@ private void clear(){
     private javax.swing.JTextField txtSoLuong;
     private javax.swing.JTextField txtTenSP;
     private javax.swing.JTextField txtTimKiem;
+    private javax.swing.JTextField txtmax;
+    private javax.swing.JTextField txtmin;
     // End of variables declaration//GEN-END:variables
 }

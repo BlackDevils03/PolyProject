@@ -146,9 +146,8 @@ public class QLChiTietSP {
         for (QLSanPham qLSanPham : iqlsps.getall()) {
             if (qLSanPham.getId().equals(idSp.getId())) {
                 s = qLSanPham.getTen();
-                s1 = qLSanPham.getMa();
             }
         }
-        return new Object[]{ i,s1, s, namBH, moTa, soLuongTon, giaNhap, giaBan};
+        return new Object[]{ i,id,idSp.getId(),idNSX.getId(),idMauSac.getId(),idDongSP.getId(),s, namBH, moTa, soLuongTon, giaNhap, giaBan,Double.parseDouble(String.valueOf(giaNhap)) * soLuongTon};
     }
 }
